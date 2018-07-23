@@ -20,9 +20,7 @@ namespace ShopHuy.Models
             this.Abouts = new HashSet<About>();
             this.Branches = new HashSet<Branch>();
             this.Deliveries = new HashSet<Delivery>();
-            this.Employee_Role = new HashSet<Employee_Role>();
             this.News = new HashSet<News>();
-            this.Orders = new HashSet<Order>();
         }
     
         public string EmployeeCode { get; set; }
@@ -43,6 +41,7 @@ namespace ShopHuy.Models
         public string Notes { get; set; }
         public Nullable<int> ReportsTo { get; set; }
         public Nullable<int> RegionId { get; set; }
+        public Nullable<int> RoleId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<About> Abouts { get; set; }
@@ -51,11 +50,8 @@ namespace ShopHuy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Delivery> Deliveries { get; set; }
         public virtual Region Region { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee_Role> Employee_Role { get; set; }
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<News> News { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

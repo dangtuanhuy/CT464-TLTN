@@ -61,16 +61,17 @@
             <PropertyRef Name="CustomerCode" />
           </Key>
           <Property Name="CustomerCode" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="ContactName" Type="nvarchar" MaxLength="30" />
-          <Property Name="ContactTitle" Type="nvarchar" MaxLength="30" />
-          <Property Name="Address" Type="nvarchar" MaxLength="60" />
-          <Property Name="City" Type="nvarchar" MaxLength="15" />
-          <Property Name="Region" Type="nvarchar" MaxLength="15" />
-          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
-          <Property Name="Country" Type="nvarchar" MaxLength="15" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="24" />
-          <Property Name="Fax" Type="nvarchar" MaxLength="24" />
+          <Property Name="CustomerPass" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="CustomerFullName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ContactCompany" Type="nvarchar" MaxLength="30" />
+          <Property Name="CustomerAddress" Type="nvarchar" MaxLength="60" />
+          <Property Name="CustomerCity" Type="nvarchar" MaxLength="15" />
+          <Property Name="CustomerRegion" Type="nvarchar" MaxLength="15" />
+          <Property Name="CustomerPostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="CustomerCountry" Type="nvarchar" MaxLength="15" />
+          <Property Name="CustomerPhone" Type="nvarchar" MaxLength="24" />
+          <Property Name="CustomerFax" Type="nvarchar" MaxLength="24" />
+          <Property Name="RoleId" Type="int" />
         </EntityType>
         <EntityType Name="Delivery">
           <Key>
@@ -105,15 +106,7 @@
           <Property Name="Notes" Type="ntext" />
           <Property Name="ReportsTo" Type="int" />
           <Property Name="RegionId" Type="int" />
-        </EntityType>
-        <EntityType Name="Employee_Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="EmployeeCode" />
-          </Key>
-          <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="EmployeeCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Note" Type="ntext" />
+          <Property Name="RoleId" Type="int" />
         </EntityType>
         <EntityType Name="ImgProducts">
           <Key>
@@ -141,7 +134,6 @@
           </Key>
           <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerCode" Type="nvarchar" MaxLength="40" />
-          <Property Name="EmployeeCode" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="RequiredDate" Type="datetime" />
           <Property Name="ShippedDate" Type="datetime" />
@@ -224,8 +216,8 @@
             <PropertyRef Name="ShipperId" />
           </Key>
           <Property Name="ShipperId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="24" />
+          <Property Name="ShipperCompany" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ShipperPhone" Type="nvarchar" MaxLength="24" />
           <Property Name="ShipperAddress" Type="ntext" />
         </EntityType>
         <EntityType Name="Size">
@@ -245,8 +237,6 @@
           <Property Name="ContactTitle" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="Region" Type="nvarchar" MaxLength="50" />
-          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Fax" Type="nvarchar" MaxLength="50" />
@@ -290,6 +280,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customer_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Delivery_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -318,30 +322,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Role_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Employee_Role" Type="Self.Employee_Role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeCode" />
-            </Principal>
-            <Dependent Role="Employee_Role">
-              <PropertyRef Name="EmployeeCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Role_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Employee_Role" Type="Self.Employee_Role" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Employee_Role">
+            <Dependent Role="Employee">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
@@ -385,20 +375,6 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="CustomerCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeCode" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="EmployeeCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -537,7 +513,6 @@
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Delivery" EntityType="Self.Delivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee_Role" EntityType="Self.Employee_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImgProducts" EntityType="Self.ImgProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -559,6 +534,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Branch" EntitySet="Branch" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customer_Role" Association="Self.FK_Customer_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Delivery_Employee" Association="Self.FK_Delivery_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Delivery" EntitySet="Delivery" />
@@ -567,13 +546,9 @@
             <End Role="Region" EntitySet="Region" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Role_Employee" Association="Self.FK_Employee_Role_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Employee_Role" EntitySet="Employee_Role" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Role_Role" Association="Self.FK_Employee_Role_Role">
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
             <End Role="Role" EntitySet="Role" />
-            <End Role="Employee_Role" EntitySet="Employee_Role" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_ImgProducts_Products" Association="Self.FK_ImgProducts_Products">
             <End Role="Products" EntitySet="Products" />
@@ -585,10 +560,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
             <End Role="Customer" EntitySet="Customer" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
-            <End Role="Employee" EntitySet="Employee" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Shipper" Association="Self.FK_Order_Shipper">
@@ -693,16 +664,18 @@
             <PropertyRef Name="CustomerCode" />
           </Key>
           <Property Name="CustomerCode" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContactName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="ContactTitle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Region" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerPass" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerFullName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactCompany" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCity" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerRegion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerPostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCountry" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerFax" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Customer_Role" FromRole="Customer" ToRole="Role" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="Delivery">
@@ -739,24 +712,13 @@
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ReportsTo" Type="Int32" />
           <Property Name="RegionId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="Abouts" Relationship="Self.FK_About_Employee" FromRole="Employee" ToRole="About" />
           <NavigationProperty Name="Branches" Relationship="Self.FK_Branch_Employee" FromRole="Employee" ToRole="Branch" />
           <NavigationProperty Name="Deliveries" Relationship="Self.FK_Delivery_Employee" FromRole="Employee" ToRole="Delivery" />
           <NavigationProperty Name="Region" Relationship="Self.FK_Employee_Region" FromRole="Employee" ToRole="Region" />
-          <NavigationProperty Name="Employee_Role" Relationship="Self.FK_Employee_Role_Employee" FromRole="Employee" ToRole="Employee_Role" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Employee_Role" FromRole="Employee" ToRole="Role" />
           <NavigationProperty Name="News" Relationship="Self.FK_News_Employee" FromRole="Employee" ToRole="News" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Employee_Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="EmployeeCode" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Role_Employee" FromRole="Employee_Role" ToRole="Employee" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Employee_Role_Role" FromRole="Employee_Role" ToRole="Role" />
         </EntityType>
         <EntityType Name="ImgProduct">
           <Key>
@@ -786,7 +748,6 @@
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerCode" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="RequiredDate" Type="DateTime" Precision="3" />
           <Property Name="ShippedDate" Type="DateTime" Precision="3" />
@@ -799,7 +760,6 @@
           <Property Name="ShipCountry" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="ShipperId" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
           <NavigationProperty Name="Shipper" Relationship="Self.FK_Order_Shipper" FromRole="Order" ToRole="Shipper" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetails" />
         </EntityType>
@@ -880,15 +840,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee_Role" Relationship="Self.FK_Employee_Role_Role" FromRole="Role" ToRole="Employee_Role" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Role" FromRole="Role" ToRole="Customer" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Role" FromRole="Role" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Shipper">
           <Key>
             <PropertyRef Name="ShipperId" />
           </Key>
           <Property Name="ShipperId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="ShipperCompany" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShipperPhone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
           <Property Name="ShipperAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Shipper" FromRole="Shipper" ToRole="Order" />
         </EntityType>
@@ -910,8 +871,6 @@
           <Property Name="ContactTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -984,6 +943,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customer_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1026,17 +999,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Role_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Employee_Role" Type="Self.Employee_Role" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeCode" />
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Employee_Role">
-              <PropertyRef Name="EmployeeCode" />
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1051,34 +1024,6 @@
             </Principal>
             <Dependent Role="News">
               <PropertyRef Name="EmployeeCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeCode" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="EmployeeCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Role_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Employee_Role" Type="Self.Employee_Role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee_Role">
-              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1203,7 +1148,6 @@
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Deliveries" EntityType="Self.Delivery" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
-          <EntitySet Name="Employee_Role" EntityType="Self.Employee_Role" />
           <EntitySet Name="ImgProducts" EntityType="Self.ImgProduct" />
           <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -1233,6 +1177,10 @@
             <End Role="Color" EntitySet="Colors" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customer_Role" Association="Self.FK_Customer_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
@@ -1245,21 +1193,13 @@
             <End Role="Region" EntitySet="Regions" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Role_Employee" Association="Self.FK_Employee_Role_Employee">
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
+            <End Role="Role" EntitySet="Roles" />
             <End Role="Employee" EntitySet="Employees" />
-            <End Role="Employee_Role" EntitySet="Employee_Role" />
           </AssociationSet>
           <AssociationSet Name="FK_News_Employee" Association="Self.FK_News_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="News" EntitySet="News" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Role_Role" Association="Self.FK_Employee_Role_Role">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="Employee_Role" EntitySet="Employee_Role" />
           </AssociationSet>
           <AssociationSet Name="FK_ImgProducts_Products" Association="Self.FK_ImgProducts_Products">
             <End Role="Products" EntitySet="Products" />
@@ -1360,16 +1300,17 @@
             <EntityTypeMapping TypeName="WatchModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="CustomerPass" ColumnName="CustomerPass" />
+                <ScalarProperty Name="CustomerFullName" ColumnName="CustomerFullName" />
+                <ScalarProperty Name="ContactCompany" ColumnName="ContactCompany" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerCity" ColumnName="CustomerCity" />
+                <ScalarProperty Name="CustomerRegion" ColumnName="CustomerRegion" />
+                <ScalarProperty Name="CustomerPostalCode" ColumnName="CustomerPostalCode" />
+                <ScalarProperty Name="CustomerCountry" ColumnName="CustomerCountry" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="CustomerFax" ColumnName="CustomerFax" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1406,15 +1347,7 @@
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
                 <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Role">
-            <EntityTypeMapping TypeName="WatchModel.Employee_Role">
-              <MappingFragment StoreEntitySet="Employee_Role">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1445,7 +1378,6 @@
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
                 <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
@@ -1533,8 +1465,8 @@
             <EntityTypeMapping TypeName="WatchModel.Shipper">
               <MappingFragment StoreEntitySet="Shipper">
                 <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ShipperCompany" ColumnName="ShipperCompany" />
+                <ScalarProperty Name="ShipperPhone" ColumnName="ShipperPhone" />
                 <ScalarProperty Name="ShipperAddress" ColumnName="ShipperAddress" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1556,8 +1488,6 @@
                 <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Fax" ColumnName="Fax" />

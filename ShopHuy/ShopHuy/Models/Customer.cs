@@ -21,17 +21,19 @@ namespace ShopHuy.Models
         }
     
         public string CustomerCode { get; set; }
-        public string CompanyName { get; set; }
-        public string ContactName { get; set; }
-        public string ContactTitle { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Region { get; set; }
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
-        public string Phone { get; set; }
-        public string Fax { get; set; }
+        public string CustomerPass { get; set; }
+        public string CustomerFullName { get; set; }
+        public string ContactCompany { get; set; }
+        public string CustomerAddress { get; set; }
+        public string CustomerCity { get; set; }
+        public string CustomerRegion { get; set; }
+        public string CustomerPostalCode { get; set; }
+        public string CustomerCountry { get; set; }
+        public string CustomerPhone { get; set; }
+        public string CustomerFax { get; set; }
+        public Nullable<int> RoleId { get; set; }
     
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

@@ -204,9 +204,6 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>Watch.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee_Role.cs">
-      <DependentUpon>Watch.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImgProduct.cs">
       <DependentUpon>Watch.tt</DependentUpon>
@@ -806,7 +803,7 @@
     <Content Include="Content\User\js\memenu.js" />
     <Content Include="Content\User\js\responsiveslides.min.js" />
     <Content Include="Content\User\js\simpleCart.min.js" />
-    <Content Include="DB\Watch.sql" />
+    <Content Include="DB\Schema.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -814,7 +811,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="DB\DB.zip" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Content\Admin\assets\chart-master\.gitignore" />
     <Content Include="Content\Admin\assets\chart-master\component.json" />
@@ -893,6 +889,16 @@
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Content\User\fonts\BreeSerif-Regular.ttf" />
+    <Content Include="Content\User\fonts\Lato-Regular.ttf" />
+    <Content Include="Content\User\fonts\Lora-Regular.ttf" />
+    <Content Include="Content\User\fonts\Muli-Regular.ttf" />
+    <Content Include="Content\User\fonts\Philosopher-Regular.ttf" />
     <EntityDeploy Include="Models\Watch.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Watch.Designer.cs</LastGenOutput>
@@ -910,16 +916,6 @@
       <DependentUpon>Watch.edmx</DependentUpon>
       <LastGenOutput>Watch.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
-    <Content Include="Content\User\fonts\BreeSerif-Regular.ttf" />
-    <Content Include="Content\User\fonts\Lato-Regular.ttf" />
-    <Content Include="Content\User\fonts\Lora-Regular.ttf" />
-    <Content Include="Content\User\fonts\Muli-Regular.ttf" />
-    <Content Include="Content\User\fonts\Philosopher-Regular.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -968,6 +964,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
+    <Content Include="Template\Template.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
