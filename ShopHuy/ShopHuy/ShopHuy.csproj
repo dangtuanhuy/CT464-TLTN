@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -170,15 +172,97 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\About.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Branch.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Color.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contact.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Delivery.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee_Role.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImgProduct.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\News.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetail.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product_Promotion.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Promotion.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Region.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shipper.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Size.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Watch.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Watch.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Watch.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Watch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Watch.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Watch.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -677,6 +761,51 @@
     <Content Include="Content\Admin\js\xcharts.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\User\css\bootstrap.css" />
+    <Content Include="Content\User\css\flexslider.css" />
+    <Content Include="Content\User\css\memenu.css" />
+    <Content Include="Content\User\css\style.css" />
+    <Content Include="Content\User\icons\watch.ico" />
+    <Content Include="Content\User\images\11.png" />
+    <Content Include="Content\User\images\abt-1.jpg" />
+    <Content Include="Content\User\images\abt-2.jpg" />
+    <Content Include="Content\User\images\abt-3.jpg" />
+    <Content Include="Content\User\images\arrow.png" />
+    <Content Include="Content\User\images\bnr-1.jpg" />
+    <Content Include="Content\User\images\bnr-2.jpg" />
+    <Content Include="Content\User\images\bnr-3.jpg" />
+    <Content Include="Content\User\images\c-1.jpg" />
+    <Content Include="Content\User\images\c-2.jpg" />
+    <Content Include="Content\User\images\c-3.jpg" />
+    <Content Include="Content\User\images\cart-1.png" />
+    <Content Include="Content\User\images\cart-2.png" />
+    <Content Include="Content\User\images\cart-3.png" />
+    <Content Include="Content\User\images\close.png" />
+    <Content Include="Content\User\images\crossword.png" />
+    <Content Include="Content\User\images\p-1.png" />
+    <Content Include="Content\User\images\p-2.png" />
+    <Content Include="Content\User\images\p-3.png" />
+    <Content Include="Content\User\images\p-4.png" />
+    <Content Include="Content\User\images\p-5.png" />
+    <Content Include="Content\User\images\p-6.png" />
+    <Content Include="Content\User\images\p-7.png" />
+    <Content Include="Content\User\images\p-8.png" />
+    <Content Include="Content\User\images\pr-1.jpg" />
+    <Content Include="Content\User\images\pr-2.jpg" />
+    <Content Include="Content\User\images\s-1.jpg" />
+    <Content Include="Content\User\images\s-2.jpg" />
+    <Content Include="Content\User\images\s-3.jpg" />
+    <Content Include="Content\User\images\s-icons.png" />
+    <Content Include="Content\User\images\search.png" />
+    <Content Include="Content\User\images\star.png" />
+    <Content Include="Content\User\images\tick.png" />
+    <Content Include="Content\User\js\imagezoom.js" />
+    <Content Include="Content\User\js\jquery-1.11.0.min.js" />
+    <Content Include="Content\User\js\jquery.easydropdown.js" />
+    <Content Include="Content\User\js\jquery.flexslider.js" />
+    <Content Include="Content\User\js\memenu.js" />
+    <Content Include="Content\User\js\responsiveslides.min.js" />
+    <Content Include="Content\User\js\simpleCart.min.js" />
     <Content Include="DB\Watch.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -764,6 +893,33 @@
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <EntityDeploy Include="Models\Watch.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Watch.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Watch.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Watch.edmx</DependentUpon>
+      <LastGenOutput>Watch.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Watch.edmx.diagram">
+      <DependentUpon>Watch.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Watch.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Watch.edmx</DependentUpon>
+      <LastGenOutput>Watch.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Content\User\fonts\BreeSerif-Regular.ttf" />
+    <Content Include="Content\User\fonts\Lato-Regular.ttf" />
+    <Content Include="Content\User\fonts\Lora-Regular.ttf" />
+    <Content Include="Content\User\fonts\Muli-Regular.ttf" />
+    <Content Include="Content\User\fonts\Philosopher-Regular.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -811,12 +967,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\Admin\assets\jquery-file-upload\server\php\files\thumbnail\" />
-    <Folder Include="Content\User\" />
     <Folder Include="Img\Employee\" />
     <Folder Include="Img\Products\" />
   </ItemGroup>
@@ -826,6 +982,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
