@@ -7,7 +7,7 @@
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
- 
+
     <link rel="shortcut icon" href="~/Content/Admin/img/icons/watch.ico">
 
     <title>Watch</title>
@@ -20,6 +20,7 @@
     <!--external css-->
     <!-- font icon -->
     <link href="~/Content/Admin/css/elegant-icons-style.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">*@
     <link href="~/Content/Admin/css/font-awesome.min.css" rel="stylesheet" />
     <!-- full calendar css-->
     <link href="~/Content/Admin/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
@@ -36,6 +37,8 @@
     <link href="~/Content/Admin/css/style-responsive.css" rel="stylesheet" />
     <link href="~/Content/Admin/css/xcharts.min.css" rel=" stylesheet">
     <link href="~/Content/Admin/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+
+
     <!-- =======================================================
       Theme Name: NiceAdmin
       Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -449,11 +452,8 @@
 
                 </div>
                 <!--/.row-->
-
-
-
                 <!-- project team & activity end -->
-@RenderBody()
+                @RenderBody()
             </section>
             <div class="text-right">
                 <div class="credits">
@@ -512,50 +512,52 @@
     <script src="~/Content/Admin/js/sparklines.js"></script>
     <script src="~/Content/Admin/js/charts.js"></script>
     <script src="~/Content/Admin/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/Admin/assets/datatables/datatables.js"></script>
+    <link href="~/Content/Admin/assets/datatables/datatables.css" rel="stylesheet" />
     <script>
-      //knob
-      $(function() {
-        $(".knob").knob({
-          'draw': function() {
-            $(this.i).val(this.cv + '%')
-          }
-        })
-      });
-
-      //carousel
-      $(document).ready(function() {
-        $("#owl-slider").owlCarousel({
-          navigation: true,
-          slideSpeed: 300,
-          paginationSpeed: 400,
-          singleItem: true
-
+        //knob
+        $(function () {
+            $(".knob").knob({
+                'draw': function () {
+                    $(this.i).val(this.cv + '%')
+                }
+            })
         });
-      });
 
-      //custom select box
+        //carousel
+        $(document).ready(function () {
+            $("#owl-slider").owlCarousel({
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
 
-      $(function() {
-        $('select.styled').customSelect();
-      });
-
-      /* ---------- Map ---------- */
-      $(function() {
-        $('#map').vectorMap({
-          map: 'world_mill_en',
-          series: {
-            regions: [{
-              values: gdpData,
-              scale: ['#000', '#000'],
-              normalizeFunction: 'polynomial'
-            }]
-          },
-          backgroundColor: '#eef3f7',
-          onLabelShow: function(e, el, code) {
-            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-          }
+            });
         });
-      });
+
+        //custom select box
+
+        $(function () {
+            $('select.styled').customSelect();
+        });
+
+        /* ---------- Map ---------- */
+        $(function () {
+            $('#map').vectorMap({
+                map: 'world_mill_en',
+                series: {
+                    regions: [{
+                        values: gdpData,
+                        scale: ['#000', '#000'],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+                backgroundColor: '#eef3f7',
+                onLabelShow: function (e, el, code) {
+                    el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                }
+            });
+        });
     </script>
     @RenderSection("scripts", required: false)
 </body>

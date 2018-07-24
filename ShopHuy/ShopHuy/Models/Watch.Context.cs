@@ -33,7 +33,6 @@ namespace ShopHuy.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Delivery> Deliveries { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<Employee_Role> Employee_Role { get; set; }
         public virtual DbSet<ImgProduct> ImgProducts { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Order> Orders { get; set; }

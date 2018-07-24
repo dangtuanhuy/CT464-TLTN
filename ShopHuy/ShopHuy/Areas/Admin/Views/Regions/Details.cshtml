@@ -1,0 +1,46 @@
+﻿@model ShopHuy.Models.Region
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-center">Details Regions</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegionDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit", "Regions", new { id = Model.RegionId })" class="btn btn-default">
+        <i class="fa fa-flash"></i>
+        <span>
+
+        </span>
+    </a>
+    |
+    <a href="@Url.Action("Index", "Regions")" class="btn btn-default">
+        <i class="fa fa-sort-alpha-desc"></i>
+        <span>
+
+        </span>
+    </a>
+</p>

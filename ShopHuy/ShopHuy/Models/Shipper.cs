@@ -21,8 +21,8 @@ namespace ShopHuy.Models
         }
     
         public int ShipperId { get; set; }
-        public string CompanyName { get; set; }
-        public string Phone { get; set; }
+        public string ShipperCompany { get; set; }
+        public string ShipperPhone { get; set; }
         public string ShipperAddress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,7 +17,8 @@ namespace ShopHuy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            this.Employee_Role = new HashSet<Employee_Role>();
+            this.Customers = new HashSet<Customer>();
+            this.Employees = new HashSet<Employee>();
         }
     
         public int Id { get; set; }
@@ -25,6 +26,8 @@ namespace ShopHuy.Models
         public string RoleDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee_Role> Employee_Role { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
