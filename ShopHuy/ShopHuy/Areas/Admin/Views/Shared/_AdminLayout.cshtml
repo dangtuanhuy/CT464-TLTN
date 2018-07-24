@@ -36,7 +36,7 @@
     <link href="~/Content/Admin/css/style.css" rel="stylesheet">
     <link href="~/Content/Admin/css/style-responsive.css" rel="stylesheet" />
     <link href="~/Content/Admin/css/xcharts.min.css" rel=" stylesheet">
-    <link href="~/Content/Admin/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 
 
     <!-- =======================================================
@@ -495,14 +495,21 @@
     <!-- container section start -->
     <!-- javascripts -->
     <script src="~/Content/Admin/js/jquery.js"></script>
-    <script src="~/Content/Admin/js/jquery-ui-1.10.4.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/Content/Admin/js/jquery-1.8.3.min.js"></script>
+
+    
     <script type="text/javascript" src="~/Content/Admin/js/jquery-ui-1.9.2.custom.min.js"></script>
     <!-- bootstrap -->
     <script src="~/Content/Admin/js/bootstrap.min.js"></script>
+
+    
+
     <!-- nice scroll -->
     <script src="~/Content/Admin/js/jquery.scrollTo.min.js"></script>
     <script src="~/Content/Admin/js/jquery.nicescroll.js" type="text/javascript"></script>
+
     <!-- charts scripts -->
     <script src="~/Content/Admin/assets/jquery-knob/js/jquery.knob.js"></script>
     <script src="~/Content/Admin/js/jquery.sparkline.js" type="text/javascript"></script>
@@ -537,6 +544,8 @@
     <script src="~/Content/Admin/js/jquery.slimscroll.min.js"></script>
     <script src="~/Content/Admin/assets/datatables/datatables.js"></script>
     <link href="~/Content/Admin/assets/datatables/datatables.css" rel="stylesheet" />
+    <script src="~/Content/Admin/assets/ckeditor/ckeditor.js"></script>
+    <link href="~/Content/Admin/assets/ckeditor/skins/moono-lisa/editor.css" rel="stylesheet" />
     <script>
         //knob
         $(function () {
@@ -582,6 +591,8 @@
             });
         });
     </script>
+  
+    }
     @RenderSection("scripts", required: false)
 </body>
 

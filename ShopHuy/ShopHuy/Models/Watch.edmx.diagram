@@ -18,7 +18,6 @@
         <EntityTypeShape EntityType="WatchModel.Order" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="WatchModel.OrderDetail" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WatchModel.Product_Promotion" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="WatchModel.Product" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="WatchModel.Promotion" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WatchModel.Region" Width="1.5" PointX="1.5" PointY="27.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WatchModel.Role" Width="1.5" PointX="1.5" PointY="20.75" IsExpanded="true" />
@@ -28,23 +27,24 @@
         <EntityTypeShape EntityType="WatchModel.sysdiagram" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="WatchModel.FK_About_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Branch_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_Products_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_Products_Color" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Customer_Role" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Order_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Delivery_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Employee_Region" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Employee_Role" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_News_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_ImgProducts_Products" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Order_Shipper" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_OrderDetails_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_OrderDetails_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_Product_Promotion_Products" ManuallyRouted="false" />
         <AssociationConnector Association="WatchModel.FK_Product_Promotion_Promotion" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_Products_Size" ManuallyRouted="false" />
-        <AssociationConnector Association="WatchModel.FK_Products_Supplier" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="WatchModel.Product" Width="1.5" PointX="3" PointY="2.625" />
+        <AssociationConnector Association="WatchModel.FK_Products_Category" />
+        <AssociationConnector Association="WatchModel.FK_Products_Color" />
+        <AssociationConnector Association="WatchModel.FK_ImgProducts_Products" />
+        <AssociationConnector Association="WatchModel.FK_OrderDetails_Products" />
+        <AssociationConnector Association="WatchModel.FK_Product_Promotion_Products" />
+        <AssociationConnector Association="WatchModel.FK_Products_Size" />
+        <AssociationConnector Association="WatchModel.FK_Products_Supplier" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -28,7 +28,7 @@ namespace ShopHuy.Models
         public string ProductDetails { get; set; }
         public Nullable<System.DateTime> ProductUpdate { get; set; }
         public Nullable<int> ProductQty { get; set; }
-        public Nullable<int> ProductSold { get; set; }
+        public Nullable<decimal> ProductSold { get; set; }
         public Nullable<int> SupplierId { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public string ProductImg { get; set; }

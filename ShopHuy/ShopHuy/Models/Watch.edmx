@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="About">
           <Key>
             <PropertyRef Name="AboutId" />
@@ -176,7 +176,7 @@
           <Property Name="ProductDetails" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductUpdate" Type="date" />
           <Property Name="ProductQty" Type="int" />
-          <Property Name="ProductSold" Type="int" />
+          <Property Name="ProductSold" Type="decimal" Precision="18" Scale="0" />
           <Property Name="SupplierId" Type="int" />
           <Property Name="CategoryId" Type="int" />
           <Property Name="ProductImg" Type="nvarchar(max)" />
@@ -599,8 +599,7 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -632,7 +631,7 @@
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CategoryDetails" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Category" FromRole="Category" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="WatchModel.FK_Products_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Color">
           <Key>
@@ -640,7 +639,7 @@
           </Key>
           <Property Name="ColorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Color" FromRole="Color" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="WatchModel.FK_Products_Color" FromRole="Color" ToRole="Product" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -727,7 +726,7 @@
           <Property Name="ImgProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ImgProducts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ProductId" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ImgProducts_Products" FromRole="ImgProducts" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="WatchModel.FK_ImgProducts_Products" FromRole="ImgProduct" ToRole="Product" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -774,7 +773,7 @@
           <Property Name="OriginalPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Quantity" Type="Int16" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Order" FromRole="OrderDetails" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetails_Products" FromRole="OrderDetails" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="WatchModel.FK_OrderDetails_Products" FromRole="OrderDetail" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product_Promotion">
           <Key>
@@ -784,32 +783,8 @@
           <Property Name="PromotionId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Gift" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Promotion_Products" FromRole="Product_Promotion" ToRole="Products" />
           <NavigationProperty Name="Promotion" Relationship="Self.FK_Product_Promotion_Promotion" FromRole="Product_Promotion" ToRole="Promotion" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ProductId" />
-          </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProduceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProductName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ProductDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProductUpdate" Type="DateTime" Precision="0" />
-          <Property Name="ProductQty" Type="Int32" />
-          <Property Name="ProductSold" Type="Int32" />
-          <Property Name="SupplierId" Type="Int32" />
-          <Property Name="CategoryId" Type="Int32" />
-          <Property Name="ProductImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ColorId" Type="Int32" />
-          <Property Name="SizeId" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Products_Category" FromRole="Products" ToRole="Category" />
-          <NavigationProperty Name="Color" Relationship="Self.FK_Products_Color" FromRole="Products" ToRole="Color" />
-          <NavigationProperty Name="ImgProducts" Relationship="Self.FK_ImgProducts_Products" FromRole="Products" ToRole="ImgProducts" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Products" FromRole="Products" ToRole="OrderDetails" />
-          <NavigationProperty Name="Product_Promotion" Relationship="Self.FK_Product_Promotion_Products" FromRole="Products" ToRole="Product_Promotion" />
-          <NavigationProperty Name="Size" Relationship="Self.FK_Products_Size" FromRole="Products" ToRole="Size" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Supplier" FromRole="Products" ToRole="Supplier" />
+          <NavigationProperty Name="Product" Relationship="WatchModel.FK_Product_Promotion_Products" FromRole="Product_Promotion" ToRole="Product" />
         </EntityType>
         <EntityType Name="Promotion">
           <Key>
@@ -859,7 +834,7 @@
           </Key>
           <Property Name="SizeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Size" FromRole="Size" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="WatchModel.FK_Products_Size" FromRole="Size" ToRole="Product" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -875,7 +850,7 @@
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HomePage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Supplier" FromRole="Supplier" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="WatchModel.FK_Products_Supplier" FromRole="Supplier" ToRole="Product" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -912,34 +887,6 @@
             </Principal>
             <Dependent Role="Branch">
               <PropertyRef Name="EmployeeCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_Color">
-          <End Role="Color" Type="Self.Color" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Color">
-              <PropertyRef Name="ColorId" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="ColorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1027,20 +974,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ImgProducts_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ImgProducts" Type="Self.ImgProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="ImgProducts">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Order_Shipper">
           <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1069,34 +1002,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Promotion_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Product_Promotion" Type="Self.Product_Promotion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="Product_Promotion">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_Promotion_Promotion">
           <End Role="Promotion" Type="Self.Promotion" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1108,34 +1013,6 @@
             </Principal>
             <Dependent Role="Product_Promotion">
               <PropertyRef Name="PromotionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeId" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="SizeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="SupplierId" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="SupplierId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1153,7 +1030,6 @@
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Product_Promotion" EntityType="Self.Product_Promotion" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Promotions" EntityType="Self.Promotion" />
           <EntitySet Name="Regions" EntityType="Self.Region" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
@@ -1168,14 +1044,6 @@
           <AssociationSet Name="FK_Branch_Employee" Association="Self.FK_Branch_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Branch" EntitySet="Branches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Color" Association="Self.FK_Products_Color">
-            <End Role="Color" EntitySet="Colors" />
-            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Role" Association="Self.FK_Customer_Role">
             <End Role="Role" EntitySet="Roles" />
@@ -1201,10 +1069,6 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="News" EntitySet="News" />
           </AssociationSet>
-          <AssociationSet Name="FK_ImgProducts_Products" Association="Self.FK_ImgProducts_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ImgProducts" EntitySet="ImgProducts" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_Shipper" Association="Self.FK_Order_Shipper">
             <End Role="Shipper" EntitySet="Shippers" />
             <End Role="Order" EntitySet="Orders" />
@@ -1213,27 +1077,162 @@
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Products" Association="Self.FK_OrderDetails_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Promotion_Products" Association="Self.FK_Product_Promotion_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Product_Promotion" EntitySet="Product_Promotion" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_Promotion_Promotion" Association="Self.FK_Product_Promotion_Promotion">
             <End Role="Promotion" EntitySet="Promotions" />
             <End Role="Product_Promotion" EntitySet="Product_Promotion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Size" Association="Self.FK_Products_Size">
+          <EntitySet Name="Products" EntityType="WatchModel.Product" />
+          <AssociationSet Name="FK_Products_Category" Association="WatchModel.FK_Products_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Color" Association="WatchModel.FK_Products_Color">
+            <End Role="Color" EntitySet="Colors" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImgProducts_Products" Association="WatchModel.FK_ImgProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ImgProduct" EntitySet="ImgProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Products" Association="WatchModel.FK_OrderDetails_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Promotion_Products" Association="WatchModel.FK_Product_Promotion_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Product_Promotion" EntitySet="Product_Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Size" Association="WatchModel.FK_Products_Size">
             <End Role="Size" EntitySet="Sizes" />
-            <End Role="Products" EntitySet="Products" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Supplier" Association="Self.FK_Products_Supplier">
+          <AssociationSet Name="FK_Products_Supplier" Association="WatchModel.FK_Products_Supplier">
             <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="Products" EntitySet="Products" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProduceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductUpdate" Type="DateTime" Precision="0" />
+          <Property Name="ProductQty" Type="Int32" />
+          <Property Name="ProductSold" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SupplierId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="ProductImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ColorId" Type="Int32" />
+          <Property Name="SizeId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="WatchModel.FK_Products_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Color" Relationship="WatchModel.FK_Products_Color" FromRole="Product" ToRole="Color" />
+          <NavigationProperty Name="ImgProducts" Relationship="WatchModel.FK_ImgProducts_Products" FromRole="Product" ToRole="ImgProduct" />
+          <NavigationProperty Name="OrderDetails" Relationship="WatchModel.FK_OrderDetails_Products" FromRole="Product" ToRole="OrderDetail" />
+          <NavigationProperty Name="Product_Promotion" Relationship="WatchModel.FK_Product_Promotion_Products" FromRole="Product" ToRole="Product_Promotion" />
+          <NavigationProperty Name="Size" Relationship="WatchModel.FK_Products_Size" FromRole="Product" ToRole="Size" />
+          <NavigationProperty Name="Supplier" Relationship="WatchModel.FK_Products_Supplier" FromRole="Product" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="FK_Products_Category">
+          <End Type="WatchModel.Category" Role="Category" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Color">
+          <End Type="WatchModel.Color" Role="Color" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="ColorId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImgProducts_Products">
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.ImgProduct" Role="ImgProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ImgProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Products">
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Promotion_Products">
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.Product_Promotion" Role="Product_Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Product_Promotion">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Size">
+          <End Type="WatchModel.Size" Role="Size" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="SizeId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Supplier">
+          <End Type="WatchModel.Supplier" Role="Supplier" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WatchModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="SupplierId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1412,24 +1411,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="WatchModel.Product">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="ProduceCode" ColumnName="ProduceCode" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductDetails" ColumnName="ProductDetails" />
-                <ScalarProperty Name="ProductUpdate" ColumnName="ProductUpdate" />
-                <ScalarProperty Name="ProductQty" ColumnName="ProductQty" />
-                <ScalarProperty Name="ProductSold" ColumnName="ProductSold" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="ProductImg" ColumnName="ProductImg" />
-                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
-                <ScalarProperty Name="SizeId" ColumnName="SizeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Promotions">
             <EntityTypeMapping TypeName="WatchModel.Promotion">
               <MappingFragment StoreEntitySet="Promotion">
@@ -1503,6 +1484,24 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="WatchModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="SizeId" ColumnName="SizeId" />
+                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+                <ScalarProperty Name="ProductImg" ColumnName="ProductImg" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="ProductSold" ColumnName="ProductSold" />
+                <ScalarProperty Name="ProductQty" ColumnName="ProductQty" />
+                <ScalarProperty Name="ProductUpdate" ColumnName="ProductUpdate" />
+                <ScalarProperty Name="ProductDetails" ColumnName="ProductDetails" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProduceCode" ColumnName="ProduceCode" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
