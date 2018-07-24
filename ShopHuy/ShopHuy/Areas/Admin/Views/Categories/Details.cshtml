@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">Details Category</h2>
 
 <div>
     <h4>Category</h4>
@@ -30,6 +30,17 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Edit", "Categories", new { id = Model.CategoryId })" class="btn btn-default">
+        <i class="fa fa-flash"></i>
+        <span>
+
+        </span>
+    </a>
+    |
+    <a href="@Url.Action("Index", "Categories")" class="btn btn-default">
+        <i class="fa fa-sort-alpha-desc"></i>
+        <span>
+
+        </span>
+    </a>
 </p>

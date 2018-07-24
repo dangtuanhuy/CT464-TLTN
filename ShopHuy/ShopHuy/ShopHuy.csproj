@@ -1034,6 +1034,10 @@
     <Content Include="Areas\Admin\Views\Product_Promotion\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Product_Promotion\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product_Promotion\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contacts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contacts\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Contacts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Contacts\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1089,7 +1093,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Contacts\" />
     <Folder Include="Content\Admin\assets\jquery-file-upload\server\php\files\thumbnail\" />
     <Folder Include="Img\Employee\" />
     <Folder Include="Img\Products\" />
