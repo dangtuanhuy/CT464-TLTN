@@ -5,30 +5,55 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Color</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "Colors")" class="btn btn-info">
+        <i class="fa fa-floppy-o"></i>
+        <span>
+
+        </span>
+    </a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ColorName)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered table-striped table-responsive" id="table-ex">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColorName)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Colors", new { id = item.ColorId })" class="btn btn-success">
+                        <i class="fa fa-flash"></i>
+                        <span>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColorName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ColorId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ColorId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ColorId })
-        </td>
-    </tr>
-}
+                        </span>
+                    </a>
+                    |
+                    <a href="@Url.Action("Details", "Colors", new { id = item.ColorId })" class="btn btn-primary">
+                        <i class="fa fa-list-alt"></i>
+                        <span>
 
+                        </span>
+                    </a>
+                    |
+                    <a href="@Url.Action("Delete", "Colors", new { id = item.ColorId })" class="btn btn-danger">
+                        <i class="fa fa-trash-o"></i>
+                        <span>
+
+                        </span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

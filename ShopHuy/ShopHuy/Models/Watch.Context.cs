@@ -38,7 +38,6 @@ namespace ShopHuy.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product_Promotion> Product_Promotion { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -46,5 +45,6 @@ namespace ShopHuy.Models
         public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }
