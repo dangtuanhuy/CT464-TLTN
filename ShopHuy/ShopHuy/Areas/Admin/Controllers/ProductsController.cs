@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ShopHuy.Models;
+using System.IO;
 
 namespace ShopHuy.Areas.Admin.Controllers
 {
@@ -37,8 +38,10 @@ namespace ShopHuy.Areas.Admin.Controllers
         }
 
         // GET: Admin/Products/Create
+          [ValidateInput(false)]
         public ActionResult Create()
         {
+           
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
             ViewBag.ColorId = new SelectList(db.Colors, "ColorId", "ColorName");
             ViewBag.SizeId = new SelectList(db.Sizes, "SizeId", "SizeName");
@@ -49,12 +52,33 @@ namespace ShopHuy.Areas.Admin.Controllers
         // POST: Admin/Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+         [ValidateInput(false)]
         [HttpPost]
+        //Kích hoạt hiển thị và add Ckeditor vào CSDL
+       
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductId,ProduceCode,ProductName,ProductDetails,ProductUpdate,ProductQty,ProductSold,SupplierId,CategoryId,ProductImg,ColorId,SizeId")] Product product)
         {
             if (ModelState.IsValid)
             {
+                //Code Upload File Basic
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        if (file.ContentLength > 0)
+                        {
+                            string _FileName = Path.GetFileName(file.FileName);
+
+                            string _path = Path.Combine(Server.MapPath("~/Img/Products"), _FileName);
+                            file.SaveAs(_path);
+                            product.ProductImg = _FileName;
+                        }
+                    }
+                }
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
